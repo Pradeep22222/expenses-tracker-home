@@ -1,19 +1,20 @@
 import express from "express";
-import { addUser } from "../../model/users/userModel.js";
+import { addUser } from "../../model/usersModel/userModel.js";
 const router = express.Router();
 
-router.post("/", async(req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const data = req.body;
-    console.log(data)
-   const result= await addUser(data);
-     res.json({
-       status: "success",
-       message: "please check your email to verify your account",
-       result
-     });
-   } catch (error) {
-    next(error)
-   } 
-})
+    const result = await addUser(req.body);
+    res.json({
+      status: "success",
+      message: "please check your email to verify your account",
+      result,
+    });
+  } catch (error) {
+    if (error.message.includes("E11000 duplicate key error collection")) {
+      error.status = 200;
+    error.message="The email address is already being registered"}
+      next(error);
+  }
+});
 export default router;
