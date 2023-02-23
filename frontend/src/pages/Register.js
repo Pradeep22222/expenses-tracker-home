@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { MainLayout } from "../components/layout/MainLayout";
+import { apipostUser } from "../helpers/axiosHelper.js";
 const initialState = {
   firstName: "",
   lastName: "",
@@ -17,12 +18,11 @@ export const Register = () => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const handleOnSubmit = (e) => {
+  console.log(form);
+  const handleOnSubmit = async (e, form) => {
     e.preventDefault();
-    console.log(form)
-    setForm(initialState)
-   
-    
+    const data = await apipostUser(form);
+    setForm(initialState);
   };
   return (
     <MainLayout>

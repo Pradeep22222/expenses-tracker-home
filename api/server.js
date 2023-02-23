@@ -20,7 +20,7 @@ app.use((error, req, res, next) => {
     status: "error",
     message: error.message,
   });
-}); 
+});
 
 // server side rendering
 app.use("/", (req, res, next) => {
