@@ -1,0 +1,13 @@
+### root request
+GET http://localhost:8000/
+
+
+#APIs
+### Post new user
+POST http://localhost:8000/api/v1/user
+Content-Type: application/json
+
+{"firstName":"Pradeep","lastName":"Dhital",
+"email":"dhital@gmail.com",
+"password":"dfjdolf"
+}

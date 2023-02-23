@@ -1,1 +1,36 @@
-console.log("backend basic is done")
+import express from "express";
+import cors from "cors";
+import userRouter from "./src/routers/userRouter.js"
+const app = express();
+const PORT = 8000;
+
+// middlewares
+app.use(cors());
+// APIs
+app.use("/api/v1/user", userRouter
+    )
+
+// server side rendering
+app.use("/", (req, res, next) => {
+    try {
+        res.json({
+            status: "success",
+            message:"response from root url"
+        })
+    } catch (error) {
+        res({ 
+            status: "error",
+            message: error.message
+        })
+    }
+})
+
+
+
+
+
+
+app.listen(PORT, (error) => {
+    error && console.log(error);
+    console.log(`server running on port ${PORT}`)
+});
