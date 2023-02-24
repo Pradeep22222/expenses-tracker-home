@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { MainLayout } from "../components/layout/MainLayout";
-import { apipostUser } from "../helpers/axiosHelper.js";
+import { apiPostUser } from "../helpers/axiosHelper.js";
+import { toast } from "react-toastify";
 const initialState = {
   firstName: "",
   lastName: "",
@@ -19,10 +20,18 @@ export const Register = () => {
     setForm({ ...form, [name]: value });
   };
   console.log(form);
-  const handleOnSubmit = async (e, form) => {
+  const handleOnSubmit = async (e,) => {
     e.preventDefault();
-    const data = await apipostUser(form);
-    setForm(initialState);
+
+    const { confirmPassword, ...restForm } = form;
+    console.log(confirmPassword);
+    if(confirmPassword != restForm.password){
+      return alert("password not matching with confirm password")
+    }
+    const {status, message} = await apiPostUser(restForm);
+    toast[status](message);
+    status === "success" && setForm(initialState);
+   
   };
   return (
     <MainLayout>

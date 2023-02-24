@@ -7,7 +7,7 @@ router.post("/", async (req, res, next) => {
     const result = await addUser(req.body);
     res.json({
       status: "success",
-      message: "please check your email to verify your account",
+      message: "Please check your email to verify your account",
       result,
     });
   } catch (error) {
